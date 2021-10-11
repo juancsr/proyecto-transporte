@@ -193,8 +193,7 @@ public class Empleado extends Entity implements EmpleadoEntity {
     @Override
     public boolean guardar() {
         boolean guardado = false;
-        System.err.println(this.genero.getNombre());
-        System.err.println(this.depto.getNombre());
+        
         try {
             if (!this.salario.guardar()) {
                 return guardado;
@@ -243,6 +242,30 @@ public class Empleado extends Entity implements EmpleadoEntity {
             JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR AL EMPLEADO: SQLException: " + e);
         }
         return eliminado;
+    }
+    
+    @Override
+    public boolean actualizar() {
+        boolean editado = false;
+        try {
+            if (!this.salario.actualizar()) {
+                return editado;
+            }
+            if (!this.persona.actualizar()) {
+                return editado;
+            }
+            
+            int genId = this.genero.getIdByName();
+            int deptoId = this.depto.getIdByName();
+            Statement st = ccn.createStatement();
+            String sql = "UPDATE empleado SET genero_id="+genId+", depto_id="+deptoId+" WHERE id="+this.id;
+            System.out.println("-- "+sql);
+            st.executeUpdate(sql);
+            editado = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR AL EMPLEADO: SQLException: " + e);
+        }
+        return editado;
     }
 
     public int getId() {

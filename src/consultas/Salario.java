@@ -78,6 +78,23 @@ public class Salario extends Entity implements SalarioEntity {
         }
         return eliminado;
     }
+    
+    @Override
+    public boolean actualizar() {
+        boolean editado = false;
+        try {
+            Statement st = ccn.createStatement();
+            String sql = "UPDATE salario SET base="+this.base+", valor_hora="+this.valorHora+", \n"
+                    + "horas_extra_diu="+this.horasExtraDiu+", horas_extra_noc="+this.horasExtraNoc+" \n"
+                    + "WHERE id="+this.id;
+            System.out.println("-- "+sql);
+            st.executeUpdate(sql);
+            editado = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR EL SALARIO DEL EMPLEADO: SQLException: " + e);
+        }
+        return editado;
+    }
 
     //getters y setters
     public int getId() {

@@ -5,16 +5,33 @@
  */
 package Grafico;
 
+import consultas.Departamento;
+import consultas.Empleado;
+import consultas.Genero;
+import consultas.Persona;
+import consultas.Salario;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juliv
  */
 public class Modificar extends javax.swing.JFrame {
 
+    Empleado emp = null;
+    Empleado e = null;
+    
+    private Departamento dep = null;
+    private Genero gen = null;
+
     /**
      * Creates new form Ingresar
      */
     public Modificar() {
+        emp = new Empleado();
+        dep = new Departamento();
+        gen = new Genero();
         initComponents();
     }
 
@@ -65,10 +82,9 @@ public class Modificar extends javax.swing.JFrame {
         jTextField15 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(800, 700));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -89,42 +105,42 @@ public class Modificar extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel6.setText("Genero");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
+        jTextField2.setEnabled(false);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
+        jTextField3.setEnabled(false);
+
+        jTextField4.setEnabled(false);
+
+        jComboBox1.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel7.setText("Departamento");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerencia", "Administrativo", "Planta" }));
+        jComboBox2.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel8.setText("Dirección");
 
+        jTextField5.setEnabled(false);
+
         jLabel9.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel9.setText("Telefono");
+
+        jTextField6.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel10.setText("Email");
 
+        jTextField7.setEnabled(false);
+
         jLabel11.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel11.setText("Salario Base");
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
-            }
-        });
+        jTextField8.setEnabled(false);
 
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
-            }
-        });
+        jTextField9.setEnabled(false);
+
+        jTextField10.setEnabled(false);
 
         jLabel12.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel12.setText("Valor Hora");
@@ -135,8 +151,14 @@ public class Modificar extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel14.setText("Hora Extras Nocturno");
 
+        jTextField11.setEnabled(false);
+
         jLabel15.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel15.setText("Valor H.E.D");
+
+        jTextField12.setEnabled(false);
+
+        jTextField13.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel16.setText("Valor H.E.N");
@@ -147,13 +169,29 @@ public class Modificar extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel18.setText("Salario");
 
+        jTextField14.setEnabled(false);
+
+        jTextField15.setEnabled(false);
+
         jButton1.setFont(new java.awt.Font("Broadway", 0, 14)); // NOI18N
         jButton1.setText("Modificar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -199,12 +237,18 @@ public class Modificar extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(242, 242, 242)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(242, 242, 242)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnBuscar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel7)))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jTextField4)
@@ -260,7 +304,8 @@ public class Modificar extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -320,9 +365,9 @@ public class Modificar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel18))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -333,7 +378,7 @@ public class Modificar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -341,21 +386,134 @@ public class Modificar extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        Menu m= new Menu();
+        Menu m = new Menu();
         m.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    
+    private void setDepComboValues() {
+        ArrayList<Departamento> departamentos = dep.getAll();
+        for (int i = 0; i < departamentos.size(); i++) {
+            this.jComboBox2.addItem(departamentos.get(i).getNombre());
+        }
+    }
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    private void setGenComboValues() {
+        ArrayList<Genero> generos = gen.ObtenerGeneros();
+        for (int i = 0; i < generos.size(); i++) {
+            this.jComboBox1.addItem(generos.get(i).getNombre());
+        }
+    }
+    
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+        String cedula = this.jTextField1.getText();
+        e = emp.consultarByCedula(cedula);
+        setDepComboValues();
+        setGenComboValues();
+        habilitar();
+        
+        jTextField2.setText(e.getPersona().getNombres());
+        jTextField3.setText(e.getPersona().getApellidos());
+        jTextField7.setText(e.getPersona().getCelular());
+        jTextField5.setText(e.getPersona().getDireccion());
+        jTextField6.setText(e.getPersona().getTelefono());
+        jTextField4.setText(e.getPersona().getCorreoElectronico());
+        jTextField8.setText(Long.toString(e.getSalario().getBase()));
+        jTextField11.setText(Integer.toString(e.getSalario().getValorHora()));
+        jTextField9.setText(Long.toString(e.getSalario().getHorasExtraDiu()));
+        jTextField10.setText(Long.toString(e.getSalario().getHorasExtraNoc()));
+        jTextField12.setText(Long.toString(e.getVhed()));
+        jTextField13.setText(Long.toString(e.getVhen()));
+        jTextField14.setText(Long.toString(e.getTransporte()));
+        jTextField15.setText(Long.toString(e.getSalarioTotal()));
+        
+        jComboBox2.setSelectedItem(e.getDepto().getNombre());
+        jComboBox1.setSelectedItem(e.getGenero().getNombre());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    
+    
+    private void habilitar() {
+        jComboBox1.removeItemAt(0);
+        jComboBox2.removeItemAt(0);
+        jTextField2.setEnabled(true);
+        jTextField3.setEnabled(true);
+        jTextField7.setEnabled(true);
+        jTextField5.setEnabled(true);
+        jTextField6.setEnabled(true);
+        jTextField4.setEnabled(true);
+        jTextField8.setEnabled(true);
+        jTextField11.setEnabled(true);
+        jTextField9.setEnabled(true);
+        jTextField10.setEnabled(true);
+        jTextField12.setEnabled(true);
+        jTextField13.setEnabled(true);
+        jTextField14.setEnabled(true);
+        jTextField15.setEnabled(true);
+        jComboBox1.setEnabled(true);
+        jComboBox2.setEnabled(true);
+    }
+    
+    private void limpiar() {
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField7.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField4.setText("");
+        jTextField8.setText("");
+        jTextField11.setText("");
+        jTextField9.setText("");
+        jTextField10.setText("");
+        jTextField12.setText("");
+        jTextField13.setText("");
+        jTextField14.setText("");
+        jTextField15.setText("");
+        e = new Empleado();
+    }
+    
+    private void actualizarE() {        
+        String depto = (String) jComboBox2.getSelectedItem();
+        String gen = (String) jComboBox1.getSelectedItem();
+        
+        Genero genero = new Genero(gen);
+        Departamento departamento = new Departamento(depto);
+        
+        String cedula = jTextField1.getText();
+        String nombre = jTextField2.getText();
+        String apellidos = jTextField3.getText();
+        String celular = jTextField7.getText();
+        String direccion = jTextField5.getText();
+        String telefono = jTextField6.getText();
+        String email = jTextField4.getText();
+        
+        Persona persona = new Persona(cedula, nombre, apellidos, celular, direccion, telefono, email);
+        persona.setId(e.getPersona().getId());
+        
+        long salBase = Long.parseLong(jTextField8.getText());
+        int valHora = Integer.parseInt(jTextField11.getText());
+        long horasExtraDiu = Long.parseLong(jTextField9.getText());
+        long horasExtraNoc = Long.parseLong(jTextField10.getText());
+        
+        Salario salario = new Salario(salBase, valHora, horasExtraDiu, horasExtraNoc);
+        salario.setId(e.getSalario().getId());
+        
+        int empId = e.getId();
+        e = new Empleado(genero, salario, persona, departamento);
+        e.setId(empId);
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+        actualizarE();
+        if (e.actualizar()) {
+            JOptionPane.showMessageDialog(null, "EMPLADO ACTUALIZADO");
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR AL EMPLEADO");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,6 +542,12 @@ public class Modificar extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -394,6 +558,7 @@ public class Modificar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;

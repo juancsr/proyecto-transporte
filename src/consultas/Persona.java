@@ -49,7 +49,7 @@ public class Persona extends Entity implements PersonaEntity {
         Persona persona = null;
         try {
             String sql = "select * from persona where id="+id;
-            System.out.println(sql);
+            System.out.println("-- "+sql);
             Statement st = ccn.createStatement();
             ResultSet rs = st.executeQuery(sql);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class Persona extends Entity implements PersonaEntity {
             String sql = "INSERT INTO persona(cedula, nombres, apellidos, celular, direccion, telefono, correoelectronico)\n "
                     + "	VALUES ('"+this.cedula+"', '"+this.nombres+"', '"+this.apellidos+"', '"+this.celular+"', '"+this.direccion+"', "
                     + "'"+this.telefono+"', '"+this.correoElectronico+"')";
-            System.out.println(sql);
+            System.out.println("-- "+sql);
             Statement st = ccn.createStatement();
             st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = st.getGeneratedKeys();
@@ -85,13 +85,36 @@ public class Persona extends Entity implements PersonaEntity {
         try {
             Statement st = ccn.createStatement();
             String sql = "DELETE FROM persona WHERE id="+this.id;
-            System.out.println(sql);
+            System.out.println("-- "+sql);
             st.execute(sql);
             eliminado = true;
         } catch (SQLException e) {
             System.out.println("NO SE PUDO ELIMINAR A LA PERSONA: SQLException: " + e);
         }
         return eliminado;
+    }
+    
+    @Override
+    public boolean actualizar() {
+        boolean editado = false;
+        try {
+            Statement st = ccn.createStatement();
+            String sql = "UPDATE persona \n"
+                    + "SET cedula='"+this.cedula+"', \n"
+                    + "nombres='"+this.nombres+"', \n"
+                    + "apellidos='"+this.apellidos+"', \n"
+                    + "celular='"+this.celular+"', \n"
+                    + "direccion='"+this.direccion+"', \n"
+                    + "telefono='"+this.telefono+"', \n"
+                    + "correoelectronico='"+this.correoElectronico+"' \n"
+                    + "WHERE id="+this.id;
+            System.out.println("-- "+sql);
+            st.executeUpdate(sql);
+            editado = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ACTUALIZAR LA INFORMACION DEL EMPLEADO: SQLException: " + e);
+        }
+        return editado;
     }
     
     //setters y getters

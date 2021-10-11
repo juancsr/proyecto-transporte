@@ -429,6 +429,7 @@ public class Eliminar extends javax.swing.JFrame {
         jTextField15.setText("");
         jComboBox1.addItem("");
         jComboBox2.addItem("");
+        e = new Empleado();
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -437,7 +438,7 @@ public class Eliminar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "EMPLADO ELIMINADO");
             limpiar();
         } else {
-            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR AL EMPLEADO");
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR AL EMPLEADO");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

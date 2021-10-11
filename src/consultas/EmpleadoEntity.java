@@ -9,4 +9,5 @@ public interface EmpleadoEntity {
     public boolean guardar();
     public Empleado consultarByCedula(String cedula);
     public boolean eliminar();
+    public boolean actualizar();
 }
