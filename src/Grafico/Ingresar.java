@@ -153,6 +153,10 @@ public class Ingresar extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel15.setText("Valor H.E.D");
 
+        jTextField12.setEnabled(false);
+
+        jTextField13.setEnabled(false);
+
         jLabel16.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel16.setText("Valor H.E.N");
 
@@ -161,6 +165,11 @@ public class Ingresar extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel18.setText("Salario");
+
+        jTextField14.setText("106454");
+        jTextField14.setEnabled(false);
+
+        jTextField15.setEnabled(false);
 
         Guardar.setFont(new java.awt.Font("Broadway", 0, 14)); // NOI18N
         Guardar.setText("Guardar");
@@ -172,6 +181,11 @@ public class Ingresar extends javax.swing.JFrame {
 
         Calcular.setFont(new java.awt.Font("Broadway", 0, 14)); // NOI18N
         Calcular.setText("Calcular");
+        Calcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CalcularActionPerformed(evt);
+            }
+        });
 
         Limpiar.setFont(new java.awt.Font("Broadway", 0, 14)); // NOI18N
         Limpiar.setText("Limpiar");
@@ -425,6 +439,18 @@ public class Ingresar extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_GuardarActionPerformed
+
+    private void CalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalcularActionPerformed
+        // TODO add your handling code here:
+        int vhed = Integer.parseInt(this.ValorHora.getText()) * Integer.parseInt(this.jTextField9.getText());
+        this.jTextField12.setText(Integer.toString(vhed));
+        int vhen = Integer.parseInt(this.ValorHora.getText()) * Integer.parseInt(this.jTextField10.getText());
+        this.jTextField13.setText(Integer.toString(vhen));
+        int base = Integer.parseInt(this.SalarioBase.getText());
+        int transporte = Integer.parseInt(this.jTextField14.getText());
+        int salarioTotal = base + vhed + vhen + transporte;
+        this.jTextField15.setText(Integer.toString(salarioTotal));
+    }//GEN-LAST:event_CalcularActionPerformed
 
     /**
      * @param args the command line arguments
