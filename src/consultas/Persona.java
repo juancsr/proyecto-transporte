@@ -1,6 +1,7 @@
 package consultas;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -76,6 +77,21 @@ public class Persona extends Entity implements PersonaEntity {
             JOptionPane.showMessageDialog(null, "NO SE PUDO CONSULAR LA INFORMACION DE LA PERSONA " + e);
         }
         return guardado;
+    }
+    
+    @Override
+    public boolean eliminar() {
+        boolean eliminado = false;
+        try {
+            Statement st = ccn.createStatement();
+            String sql = "DELETE FROM persona WHERE id="+this.id;
+            System.out.println(sql);
+            st.execute(sql);
+            eliminado = true;
+        } catch (SQLException e) {
+            System.out.println("NO SE PUDO ELIMINAR A LA PERSONA: SQLException: " + e);
+        }
+        return eliminado;
     }
     
     //setters y getters

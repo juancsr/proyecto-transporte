@@ -5,16 +5,23 @@
  */
 package Grafico;
 
+import consultas.Empleado;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juliv
  */
 public class Eliminar extends javax.swing.JFrame {
 
+    Empleado emp = null;
+    Empleado e = null;
+
     /**
      * Creates new form Ingresar
      */
     public Eliminar() {
+        emp = new Empleado();
         initComponents();
     }
 
@@ -65,6 +72,7 @@ public class Eliminar extends javax.swing.JFrame {
         jTextField15 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,24 +95,42 @@ public class Eliminar extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel6.setText("Genero");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
+        jTextField2.setEnabled(false);
+
+        jTextField3.setEnabled(false);
+
+        jTextField4.setEnabled(false);
+
+        jComboBox1.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel7.setText("Departamento");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerencia", "Administrativo", "Planta" }));
+        jComboBox2.setEnabled(false);
 
         jLabel8.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel8.setText("Dirección");
 
+        jTextField5.setEnabled(false);
+
         jLabel9.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel9.setText("Telefono");
+
+        jTextField6.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel10.setText("Email");
 
+        jTextField7.setEnabled(false);
+
         jLabel11.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel11.setText("Salario Base");
+
+        jTextField8.setEnabled(false);
+
+        jTextField9.setEnabled(false);
+
+        jTextField10.setEnabled(false);
 
         jLabel12.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel12.setText("Valor Hora");
@@ -115,8 +141,14 @@ public class Eliminar extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel14.setText("Hora Extras Nocturno");
 
+        jTextField11.setEnabled(false);
+
         jLabel15.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel15.setText("Valor H.E.D");
+
+        jTextField12.setEnabled(false);
+
+        jTextField13.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel16.setText("Valor H.E.N");
@@ -127,13 +159,29 @@ public class Eliminar extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel18.setText("Salario");
 
+        jTextField14.setEnabled(false);
+
+        jTextField15.setEnabled(false);
+
         jButton1.setFont(new java.awt.Font("Broadway", 0, 14)); // NOI18N
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Volver");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -179,12 +227,18 @@ public class Eliminar extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(242, 242, 242)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(242, 242, 242)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnBuscar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLabel7)))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jTextField4)
@@ -240,7 +294,8 @@ public class Eliminar extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -321,9 +376,70 @@ public class Eliminar extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.setVisible(false);
-        Menu m= new Menu();
+        Menu m = new Menu();
         m.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        try {
+            jComboBox1.removeItemAt(0);
+            jComboBox2.removeItemAt(0);
+        } catch (Exception e) {
+        
+        }
+        
+        String cedula = this.jTextField1.getText();
+        e = emp.consultarByCedula(cedula);
+        jTextField2.setText(e.getPersona().getNombres());
+        jTextField3.setText(e.getPersona().getApellidos());
+        jTextField7.setText(e.getPersona().getCelular());
+        jTextField5.setText(e.getPersona().getDireccion());
+        jTextField6.setText(e.getPersona().getTelefono());
+        jTextField4.setText(e.getPersona().getCorreoElectronico());
+        jTextField8.setText(Long.toString(e.getSalario().getBase()));
+        jTextField11.setText(Integer.toString(e.getSalario().getValorHora()));
+        jTextField9.setText(Long.toString(e.getSalario().getHorasExtraDiu()));
+        jTextField10.setText(Long.toString(e.getSalario().getHorasExtraNoc()));
+        jTextField12.setText(Long.toString(e.getVhed()));
+        jTextField13.setText(Long.toString(e.getVhen()));
+        jTextField14.setText(Long.toString(e.getTransporte()));
+        jTextField15.setText(Long.toString(e.getSalarioTotal()));
+        jComboBox1.addItem(e.getGenero().getNombre());
+        jComboBox2.addItem(e.getDepto().getNombre());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    
+    
+    private void limpiar() {
+        jComboBox1.removeItemAt(0);
+        jComboBox2.removeItemAt(0);
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField7.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jTextField4.setText("");
+        jTextField8.setText("");
+        jTextField11.setText("");
+        jTextField9.setText("");
+        jTextField10.setText("");
+        jTextField12.setText("");
+        jTextField13.setText("");
+        jTextField14.setText("");
+        jTextField15.setText("");
+        jComboBox1.addItem("");
+        jComboBox2.addItem("");
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (e.eliminar()) {
+            JOptionPane.showMessageDialog(null, "EMPLADO ELIMINADO");
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR AL EMPLEADO");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,6 +480,7 @@ public class Eliminar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;

@@ -63,6 +63,21 @@ public class Salario extends Entity implements SalarioEntity {
         }
         return guardado;
     }
+    
+    @Override
+    public boolean eliminar() {
+        boolean eliminado = false;
+        try {
+            Statement st = ccn.createStatement();
+            String sql = "DELETE FROM salario WHERE id="+this.id;
+            System.out.println(sql);
+            st.execute(sql);
+            eliminado = true;
+        } catch (SQLException e) {
+            System.out.println("NO SE PUDO ELIMINAR EL SALARIO: SQLException: " + e);
+        }
+        return eliminado;
+    }
 
     //getters y setters
     public int getId() {

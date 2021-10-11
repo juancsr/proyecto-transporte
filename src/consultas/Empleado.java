@@ -41,7 +41,7 @@ public class Empleado extends Entity implements EmpleadoEntity {
         this.depto = depto;
     }
 
-    public Empleado(int id, Genero genero, Salario salario, Persona persona, 
+    public Empleado(int id, Genero genero, Salario salario, Persona persona,
             Departamento depto, long vhed, long vhen, long transporte, long salarioTotal) {
         this.id = id;
         this.genero = genero;
@@ -53,8 +53,6 @@ public class Empleado extends Entity implements EmpleadoEntity {
         this.transporte = transporte;
         this.salarioTotal = salarioTotal;
     }
-    
-    
 
     @Override
     public ArrayList<Empleado> consultarEmpleados() {
@@ -80,7 +78,7 @@ public class Empleado extends Entity implements EmpleadoEntity {
                     + "AND e.salario_id = s.id ;";
             Statement st = ccn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 int empId = rs.getInt(1);
                 String empCed = rs.getString(2);
                 String empNom = rs.getString(3);
@@ -103,18 +101,77 @@ public class Empleado extends Entity implements EmpleadoEntity {
                 long vhen = rs.getLong(16);
                 long transporte = rs.getLong(17);
                 long salario = rs.getLong(18);
-                
+
                 Empleado emp = new Empleado(empId, gen, sal, per, dep, vhed, vhen, transporte, salario);
                 empleados.add(emp);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "NO SE PUDIERON TRAER LOS EMPLEADOS " + e);
 
-        } 
-//        finally {
-//            ccn.Desconexion();
-//        }
+        }
+
         return empleados;
+    }
+
+    @Override
+    public Empleado consultarByCedula(String cedula) {
+        Empleado empleado = null;
+
+        try {
+            String sql = "SELECT e.id, p.cedula, p.nombres, p.apellidos, \n"
+                    + "p.celular, g.nombre , p.direccion , p.telefono ,\n"
+                    + "p.correoelectronico, d.nombre , s.base ,\n"
+                    + "s.valor_hora , s.horas_extra_diu , s.horas_extra_noc , \n"
+                    + "(s.valor_hora * s.horas_extra_diu) vhed,\n"
+                    + "(s.valor_hora * s.horas_extra_noc) vhen,\n"
+                    + "106.454 transporte,\n"
+                    + "(s.base + 106454 + (s.valor_hora * s.horas_extra_noc) + (s.valor_hora * s.horas_extra_diu)) salario,\n"
+                    + "p.id, \n"
+                    + "s.id \n"
+                    + "FROM empleado e,\n"
+                    + "persona p ,\n"
+                    + "departamento d ,\n"
+                    + "genero g ,\n"
+                    + "salario s\n"
+                    + "WHERE e.persona_id = p.id \n"
+                    + "AND e.depto_id = d.id\n"
+                    + "AND e.genero_id = g.id \n"
+                    + "AND e.salario_id = s.id \n"
+                    + "AND p.cedula = '"+cedula+"';";
+            Statement st = ccn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                int empId = rs.getInt(1);
+                String empCed = rs.getString(2);
+                String empNom = rs.getString(3);
+                String empApe = rs.getString(4);
+                String empCel = rs.getString(5);
+                String empGen = rs.getString(6);
+                Genero gen = new Genero(empGen);
+                String empDir = rs.getString(7);
+                String empTel = rs.getString(8);
+                String empEmail = rs.getString(9);
+                Persona per = new Persona(empCed, empNom, empApe, empCel, empDir, empTel, empEmail);
+                String empDepto = rs.getString(10);
+                Departamento dep = new Departamento(empDepto);
+                long base = rs.getLong(11);
+                int valorHora = rs.getInt(12);
+                long horasExtraDiu = rs.getLong(13);
+                long hroasExtraNoc = rs.getLong(14);
+                Salario sal = new Salario(base, valorHora, horasExtraDiu, hroasExtraNoc);
+                long vhed = rs.getLong(15);
+                long vhen = rs.getLong(16);
+                long transporte = rs.getLong(17);
+                long salario = rs.getLong(18);
+                per.setId(rs.getInt(19));
+                sal.setId(rs.getInt(20));
+                empleado = new Empleado(empId, gen, sal, per, dep, vhed, vhen, transporte, salario);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDIERON TRAER LOS EMPLEADOS " + e);
+        }
+
+        return empleado;
     }
 
     @Override
@@ -162,6 +219,30 @@ public class Empleado extends Entity implements EmpleadoEntity {
         }
 
         return guardado;
+    }
+    
+    @Override
+    public boolean eliminar() {
+        boolean eliminado = false;
+        try {
+            Statement st = ccn.createStatement();
+            String sql = "DELETE FROM empleado WHERE id="+this.id;
+            System.out.println(sql);
+            st.execute(sql);
+            
+            if (!this.persona.eliminar()) {
+                return eliminado;
+            }
+            
+            if (!this.salario.eliminar()) {
+                return eliminado;
+            }
+            
+            eliminado = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO ELIMINAR AL EMPLEADO: SQLException: " + e);
+        }
+        return eliminado;
     }
 
     public int getId() {
@@ -236,5 +317,4 @@ public class Empleado extends Entity implements EmpleadoEntity {
         this.salarioTotal = salarioTotal;
     }
 
-    
 }
