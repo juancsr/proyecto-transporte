@@ -62,6 +62,11 @@ public class Menu extends javax.swing.JFrame {
 
         Lista.setFont(new java.awt.Font("Incised901 Ct BT", 0, 20)); // NOI18N
         Lista.setText("LISTA DE EMPLEADOS");
+        Lista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListaActionPerformed(evt);
+            }
+        });
 
         Salir.setFont(new java.awt.Font("Incised901 Ct BT", 0, 20)); // NOI18N
         Salir.setText("SALIR");
@@ -160,6 +165,13 @@ public class Menu extends javax.swing.JFrame {
         obj.Desconexion();
         System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed
+
+    private void ListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaActionPerformed
+        this.setVisible(false);
+        Listar l = new Listar();
+        l.setVisible(true);
+        
+    }//GEN-LAST:event_ListaActionPerformed
 
     /**
      * @param args the command line arguments
