@@ -1,20 +1,16 @@
 
 package Grafico;
 
-import Conexion.Conexion;
+import Conexion.ConexionPostgresql;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
-    Connection con=null;
-    Conexion c =new Conexion();
     
     int cedula;
     
     public Menu() {
         initComponents();
-        con=c.getConnection();
-        JOptionPane.showMessageDialog(null, "Conexion Exitosa");
     }
 
     @SuppressWarnings("unchecked")
@@ -160,7 +156,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         JOptionPane.showMessageDialog(null, "Conexion Terminada");
-        Conexion obj=new Conexion();
+        ConexionPostgresql obj=new ConexionPostgresql();
         obj.Desconexion();
         System.exit(0);
     }//GEN-LAST:event_SalirActionPerformed

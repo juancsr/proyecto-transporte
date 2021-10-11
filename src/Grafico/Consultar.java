@@ -1,7 +1,7 @@
 
 package Grafico;
 
-import Conexion.Conexion;
+import Conexion.ConexionPostgresql;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,17 +10,12 @@ import javax.swing.JOptionPane;
 
 public class Consultar extends javax.swing.JFrame {
     Menu m= new Menu();
-    Connection con1=null;
-    Conexion c=new Conexion();
-    String sql="select * from Nomina";
-    String dts[]=new String [17];
+    
     /**
      * Creates new form Ingresar
      */
     public Consultar() {
         initComponents();
-        
-        
     }
 
     /**
@@ -361,13 +356,8 @@ public class Consultar extends javax.swing.JFrame {
     }//GEN-LAST:event_ValorHoraActionPerformed
 
     private void ConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarActionPerformed
-       verDatos();
-        if (Cedula.getText()==dts[0]) {
-            Nombres.setText(dts[1]);
-            Apellidos.setText(dts[2]);
-        }else{
-            JOptionPane.showMessageDialog(null, "Error");
-        }
+      verDatos();
+       
     }//GEN-LAST:event_ConsultarActionPerformed
 
     /**
@@ -406,34 +396,7 @@ public class Consultar extends javax.swing.JFrame {
         });
     }
     public void verDatos(){
-        try{
-            con1=c.getConnection();
-            
-            Statement st=con1.createStatement();
-            ResultSet rs=st.executeQuery(sql);
-            while(rs.next()){
-                dts[0]=rs.getString("Cedula_Nomina");
-                dts[1]=rs.getString("Nombres_Nomina");
-                dts[2]=rs.getString("Apellidos_Nomina");
-                dts[3]=rs.getString("Cedula_Nomina");
-                dts[4]=rs.getString("Cedula_Nomina");
-                dts[5]=rs.getString("Cedula_Nomina");
-                dts[6]=rs.getString("Cedula_Nomina");
-                dts[7]=rs.getString("Cedula_Nomina");
-                dts[8]=rs.getString("Cedula_Nomina");
-                dts[9]=rs.getString("Cedula_Nomina");
-                dts[10]=rs.getString("Cedula_Nomina");
-                dts[11]=rs.getString("Cedula_Nomina");
-                dts[12]=rs.getString("Cedula_Nomina");
-                dts[13]=rs.getString("Cedula_Nomina");
-                dts[14]=rs.getString("Cedula_Nomina");
-                dts[15]=rs.getString("Cedula_Nomina");
-                dts[16]=rs.getString("Cedula_Nomina");
-                
-            }
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "No es posible traer los datos");
-        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

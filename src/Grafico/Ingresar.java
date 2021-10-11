@@ -1,20 +1,46 @@
-
 package Grafico;
 
-import Conexion.Conexion;
+import Conexion.ConexionPostgresql;
+import consultas.Departamento;
+import consultas.Empleado;
+import consultas.Genero;
+import consultas.Persona;
+import consultas.Salario;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Ingresar extends javax.swing.JFrame {
-    Menu m= new Menu();
-    Connection con=null;
-    Conexion c=new Conexion();
+
+    Menu m = new Menu();
+
+    private Departamento dep = null;
+    private Genero gen = null;
+
     public Ingresar() {
+        dep = new Departamento();
+        gen = new Genero();
         initComponents();
+        setDepComboValues();
+        setGenComboValues();
+    }
+
+    private void setDepComboValues() {
+        ArrayList<Departamento> departamentos = dep.getAll();
+        for (int i = 0; i < departamentos.size(); i++) {
+            this.Departamento.addItem(departamentos.get(i).getNombre());
+        }
+    }
+
+    private void setGenComboValues() {
+        ArrayList<Genero> generos = gen.ObtenerGeneros();
+        for (int i = 0; i < generos.size(); i++) {
+            this.Genero.addItem(generos.get(i).getNombre());
+        }
     }
 
     /**
@@ -88,12 +114,8 @@ public class Ingresar extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel6.setText("Genero");
 
-        Genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M", "F" }));
-
         jLabel7.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel7.setText("Departamento");
-
-        Departamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerencia", "Administrativo", "Planta" }));
 
         jLabel8.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel8.setText("Dirección");
@@ -358,7 +380,7 @@ public class Ingresar extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         this.setVisible(false);
-        
+
         m.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -371,27 +393,37 @@ public class Ingresar extends javax.swing.JFrame {
     }//GEN-LAST:event_ValorHoraActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        try{
-            con=c.getConnection();
-            Statement st=con.createStatement();
-            String sql="insert into Nomina (Cedula, Nombres, Apellidos, Celular, Departamento, Direccion, Telefono, Email, Salario Base, Valor Hora, Horas Extras Diurna, Horas Extras Nocturna, Valor Horas Extra Diurna, Valor Horas Extra Nocturna, Subsidio Transporte, Salario) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement pst=con.prepareStatement(sql);
-            pst.setInt(1, Integer.parseInt(Cedula.getText()));
-            pst.setString(2, Nombres.getText());
-            pst.setString(3, Apellidos.getText());
-            pst.setInt(4, Integer.parseInt(Celular.getText()));
-            pst.setString(5, Genero.getItemAt(0));
-            pst.setString(6, Departamento.getItemAt(0));
-            pst.setInt(7, Integer.parseInt(Telefono.getText()));
-            pst.setString(8, Email.getText());
-            pst.setInt(9, Integer.parseInt(SalarioBase.getText()));
-            int n=pst.executeUpdate();
-            if (n>0) {
-                JOptionPane.showMessageDialog(null, "Datos Guardados");
+        // AQUI SE GUARDA!!!
+        try {
+            System.out.println("Guardando...");
+            String cedula = this.Cedula.getText();
+            String nombres = this.Nombres.getText();
+            String apellidos = this.Apellidos.getText();
+            String celular = this.Celular.getText();
+            String departamento = (String) this.Departamento.getSelectedItem();
+            String genero = (String) this.Genero.getSelectedItem();
+            String direccion = this.Direccion.getText();
+            String telefono = this.Telefono.getText();
+            String email = this.Email.getText();
+            long salarioBase = Long.parseLong(this.SalarioBase.getText());
+            int valorHora = Integer.parseInt(this.ValorHora.getText());
+            long horasExtraDiu = Long.parseLong(this.jTextField9.getText());
+            long horasExtraNoche = Long.parseLong(this.jTextField10.getText());
+
+            Genero genEmpleado = new Genero(genero);
+            Departamento deptoEmpleado = new Departamento(departamento);
+            Salario salarioEmpleado = new Salario(salarioBase, valorHora, horasExtraDiu, horasExtraNoche);
+            Persona perEmpleado = new Persona(cedula, nombres, apellidos, celular, direccion, telefono, email);
+            Empleado empleado = new Empleado(genEmpleado, salarioEmpleado, perEmpleado, deptoEmpleado);
+            if (empleado.guardar()) {
+                JOptionPane.showMessageDialog(null, "NUEVO EMPLEADO REGISTRADO");
+            } else {
+                JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR AL EMPLEADO");
             }
-        }catch(SQLException | HeadlessException e){
-            JOptionPane.showMessageDialog(null, "Error");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "NO SE PUDO REGISTRAR AL EMPLEADO: " + e);
         }
+
     }//GEN-LAST:event_GuardarActionPerformed
 
     /**
